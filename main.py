@@ -10,42 +10,70 @@
 
 import random
 
-
 # TODO-1 Create a board using a 2-dimensional array and initialize each element as empty.
 
 theBoard = {7: ' ', 8: ' ', 9: ' ',
             4: ' ', 5: ' ', 6: ' ',
             1: ' ', 2: ' ', 3: ' '}
 
+free_spots = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-free_spots = [1, 2, 3, 4, 5, 6, 7, 8, ]
-player_one = []
-player_two = []
+player = [{"symbol": "X", "spots_taken": []},
+          {"symbol": "O", "spots_taken": []}]
 
+turn = 0
 
 def printBoard(board):
-    print(f" {board['7']} | {board['8']} | {board['9']}")
+    print(f" {board[7]} | {board[8]} | {board[9]}")
     print('---+---+---')
-    print(f" {board['4']} | {board['5']} | {board['6']}")
+    print(f" {board[4]} | {board[5]} | {board[6]}")
     print('---+---+---')
-    print(f" {board['1']} | {board['2']} | {board['3']}\n\n")
+    print(f" {board[1]} | {board[2]} | {board[3]}\n\n")
 
 
 def newMove():
-    new_spot = str(random.choice(free_spots))
-    theBoard[new_spot] = 'X'
-    free_spots.remove(new_spot)
-    player_one.append(new_spot)
+    # new_spot = str(random.choice(free_spots))
+    new_spot = int(input("Enter the position number: \n"))
+    if new_spot in free_spots:
+        theBoard[new_spot] = player[turn]["symbol"]
+        free_spots.remove(new_spot)
+        player[turn]["spots_taken"].append(new_spot)
+        print(player[turn]["spots_taken"])
+        return
+    else:
+        print("That is not a valid choice! Try again.")
+        newMove()
 
 
-newMove()
-print(free_spots)
-print(player_one)
 printBoard(theBoard)
 newMove()
+turn = 1 - turn
+
 print(free_spots)
-print(player_one)
+print(player[0]["spots_taken"])
+print(player[1]["spots_taken"])
+
+
 printBoard(theBoard)
+newMove()
+turn = 1 - turn
+
+print(free_spots)
+print(player[0]["spots_taken"])
+print(player[1]["spots_taken"])
+
+printBoard(theBoard)
+newMove()
+turn = 1 - turn
+
+print(free_spots)
+print(player[0]["spots_taken"])
+print(player[1]["spots_taken"])
+
+
+printBoard(theBoard)
+
+
 
 
 # print(new_spot)
