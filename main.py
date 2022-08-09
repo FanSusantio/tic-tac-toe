@@ -18,8 +18,8 @@ theBoard = {7: ' ', 8: ' ', 9: ' ',
 
 free_spots = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-player = [{"symbol": "X", "spots_taken": []},
-          {"symbol": "O", "spots_taken": []}]
+player = [{"name": "player_one", "symbol": "X", "spots_taken": []},
+          {"name": "player_two", "symbol": "O", "spots_taken": []}]
 
 turn = 0
 
@@ -34,33 +34,43 @@ def printBoard(board):
 
 def newMove():
     # new_spot = str(random.choice(free_spots))
-    new_spot = int(input("Enter the position number: \n"))
+    new_spot = int(input(f"{player[turn]['name']} enter a position number: \n"))
     if new_spot in free_spots:
         theBoard[new_spot] = player[turn]["symbol"]
         free_spots.remove(new_spot)
         player[turn]["spots_taken"].append(new_spot)
-        print(player[turn]["spots_taken"])
         return
     else:
         print("That is not a valid choice! Try again.")
         newMove()
 
 
+def isPlayWin():
+    winning_combos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],  # horizontal win
+                      [1, 4, 7], [2, 5, 8], [3, 6, 9],  # vertical win
+                      [1, 5, 9], [3, 5, 7]]  # diagonal win
+    check_list = player[turn]["spots_taken"]
+    items = set(check_list)
+    return sum([set(combo).issubset(items) for combo in winning_combos])
+
+
 def game():
     global turn
     is_game_over = False
     printBoard(theBoard)
+
     while not is_game_over:
         newMove()
+        if isPlayWin():
+            print(f"Player {player[turn]['symbol']} wins!")
+            print("Game Over")
+            is_game_over = True
 
         if len(free_spots) == 0:
             is_game_over = True
         else:
             turn = 1 - turn
         printBoard(theBoard)
-        print(free_spots)
-        print(player[0]["spots_taken"])
-        print(player[1]["spots_taken"])
 
 
 game()
