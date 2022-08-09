@@ -62,11 +62,12 @@ def game():
     while not is_game_over:
         newMove()
         if isPlayWin():
-            print(f"Player {player[turn]['symbol']} wins!")
+            print(f"Player {player[turn]['name']} wins!")
             print("Game Over")
             is_game_over = True
 
-        if len(free_spots) == 0:
+        elif len(free_spots) == 0:
+            print("It's a draw! Game Over.")
             is_game_over = True
         else:
             turn = 1 - turn
