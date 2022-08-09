@@ -33,8 +33,9 @@ def printBoard(board):
 
 
 def newMove():
-    # new_spot = str(random.choice(free_spots))
+    # Ask the user to enter the position number.
     new_spot = int(input(f"{player[turn]['name']} enter a position number: \n"))
+    # new_spot = str(random.choice(free_spots))
     if new_spot in free_spots:
         theBoard[new_spot] = player[turn]["symbol"]
         free_spots.remove(new_spot)
@@ -44,7 +45,7 @@ def newMove():
         print("That is not a valid choice! Try again.")
         newMove()
 
-
+# Check whether the current player won the game or not.
 def isPlayWin():
     winning_combos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],  # horizontal win
                       [1, 4, 7], [2, 5, 8], [3, 6, 9],  # vertical win
@@ -59,13 +60,17 @@ def game():
     is_game_over = False
     printBoard(theBoard)
 
+    # Write an infinite loop that breaks when the game is over (either win or draw).
     while not is_game_over:
         newMove()
+        # If the current player won the game, then print a winning message and break the infinite loop.
         if isPlayWin():
             print(f"Player {player[turn]['name']} wins!")
             print("Game Over")
             is_game_over = True
 
+        # Check whether the board is filled or not.
+        # If the board is filled, then print the draw message and break the infinite loop.
         elif len(free_spots) == 0:
             print("It's a draw! Game Over.")
             is_game_over = True
@@ -73,27 +78,15 @@ def game():
             turn = 1 - turn
         printBoard(theBoard)
 
+    # if input("Do you want to play a game of TicTacToe? Type 'y' or 'n': ") == "y":
+    #     game()
+
 
 game()
 
 
-# TODO-2 Write a function to check whether the board is filled or not.
-
-# TODO-3 Write a function to check whether a player has won or not.
-
-# TODO-4 Write a function to show the board as we will show the board multiple times to the users while they are playing.
-
-# TODO-5 Write a function to start the game.
-
-# Select the first turn of the player randomly.
-# Write an infinite loop that breaks when the game is over (either win or draw).
 # Show the board to the user to select the spot for the next move.
-# Ask the user to enter the row and column number.
-# Update the spot with the respective player sign.
-# Check whether the current player won the game or not.
-# If the current player won the game, then print a winning message and break the infinite loop.
-# Next, check whether the board is filled or not.
-# If the board is filled, then print the draw message and break the infinite loop.
+
 # Finally, show the user the final view of the board.
 
 # Select one or two player game
