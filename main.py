@@ -23,6 +23,7 @@ player = [{"symbol": "X", "spots_taken": []},
 
 turn = 0
 
+
 def printBoard(board):
     print(f" {board[7]} | {board[8]} | {board[9]}")
     print('---+---+---')
@@ -45,67 +46,25 @@ def newMove():
         newMove()
 
 
-printBoard(theBoard)
-newMove()
-turn = 1 - turn
+def game():
+    global turn
+    is_game_over = False
+    printBoard(theBoard)
+    while not is_game_over:
+        newMove()
 
-print(free_spots)
-print(player[0]["spots_taken"])
-print(player[1]["spots_taken"])
-
-
-printBoard(theBoard)
-newMove()
-turn = 1 - turn
-
-print(free_spots)
-print(player[0]["spots_taken"])
-print(player[1]["spots_taken"])
-
-printBoard(theBoard)
-newMove()
-turn = 1 - turn
-
-print(free_spots)
-print(player[0]["spots_taken"])
-print(player[1]["spots_taken"])
+        if len(free_spots) == 0:
+            is_game_over = True
+        else:
+            turn = 1 - turn
+        printBoard(theBoard)
+        print(free_spots)
+        print(player[0]["spots_taken"])
+        print(player[1]["spots_taken"])
 
 
-printBoard(theBoard)
+game()
 
-
-
-
-# print(new_spot)
-# print(free_spots)
-# theBoard[new_spot] = 'X'
-# printBoard(theBoard)
-#
-# new_spot = str(random.choice(free_spots))
-# free_spots.remove(new_spot)
-#
-# print(new_spot)
-# print(free_spots)
-# theBoard[new_spot] = 'O'
-# printBoard(theBoard)
-#
-# new_spot = input("Choose a position")
-# if new_spot in free_spots:
-#     free_spots.remove(new_spot)
-# else:
-#     print("That is not a valid choice! Try again.")
-#
-# print(new_spot)
-# print(free_spots)
-# theBoard[new_spot] = 'X'
-# printBoard(theBoard)
-#
-# player_one = []
-# player_two = []
-#
-# printBoard(theBoard)
-#
-#
 
 # TODO-2 Write a function to check whether the board is filled or not.
 
