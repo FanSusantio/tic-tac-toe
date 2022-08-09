@@ -13,12 +13,14 @@ import random
 
 # TODO-1 Create a board using a 2-dimensional array and initialize each element as empty.
 
-theBoard = {'7': ' ', '8': ' ', '9': ' ',
-            '4': ' ', '5': ' ', '6': ' ',
-            '1': ' ', '2': ' ', '3': ' '}
+theBoard = {7: ' ', 8: ' ', 9: ' ',
+            4: ' ', 5: ' ', 6: ' ',
+            1: ' ', 2: ' ', 3: ' '}
 
 
-free_spots = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+free_spots = [1, 2, 3, 4, 5, 6, 7, 8, ]
+player_one = []
+player_two = []
 
 
 def printBoard(board):
@@ -29,40 +31,53 @@ def printBoard(board):
     print(f" {board['1']} | {board['2']} | {board['3']}\n\n")
 
 
-printBoard(theBoard)
-new_spot = str(random.choice(free_spots))
-free_spots.remove(new_spot)
-
-print(new_spot)
-print(free_spots)
-theBoard[new_spot] = 'X'
-printBoard(theBoard)
-
-new_spot = str(random.choice(free_spots))
-free_spots.remove(new_spot)
-
-print(new_spot)
-print(free_spots)
-theBoard[new_spot] = 'O'
-printBoard(theBoard)
-
-new_spot = input("Choose a position")
-if new_spot in free_spots:
+def newMove():
+    new_spot = str(random.choice(free_spots))
+    theBoard[new_spot] = 'X'
     free_spots.remove(new_spot)
-else:
-    print("That is not a valid choice! Try again.")
+    player_one.append(new_spot)
 
-print(new_spot)
+
+newMove()
 print(free_spots)
-theBoard[new_spot] = 'X'
+print(player_one)
+printBoard(theBoard)
+newMove()
+print(free_spots)
+print(player_one)
 printBoard(theBoard)
 
-player_one = []
-player_two = []
 
-printBoard(theBoard)
-
-
+# print(new_spot)
+# print(free_spots)
+# theBoard[new_spot] = 'X'
+# printBoard(theBoard)
+#
+# new_spot = str(random.choice(free_spots))
+# free_spots.remove(new_spot)
+#
+# print(new_spot)
+# print(free_spots)
+# theBoard[new_spot] = 'O'
+# printBoard(theBoard)
+#
+# new_spot = input("Choose a position")
+# if new_spot in free_spots:
+#     free_spots.remove(new_spot)
+# else:
+#     print("That is not a valid choice! Try again.")
+#
+# print(new_spot)
+# print(free_spots)
+# theBoard[new_spot] = 'X'
+# printBoard(theBoard)
+#
+# player_one = []
+# player_two = []
+#
+# printBoard(theBoard)
+#
+#
 
 # TODO-2 Write a function to check whether the board is filled or not.
 
