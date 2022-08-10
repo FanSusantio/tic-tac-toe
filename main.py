@@ -97,7 +97,7 @@ def start_game():
         newMove()
         # If the current player won the game, then print a winning message and break the infinite loop.
         if isPlayWin():
-            print(f"Player {players[TURN_TOGGLE].name} wins!")
+            print(f"{players[TURN_TOGGLE].name} wins!")
             print("Game Over")
             is_game_over = True
 
