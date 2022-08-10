@@ -59,7 +59,7 @@ class Player:
 
 
 def newMove():
-    # If a one player game and it is the computers move, then it will choose randomly from the free spots
+    # If a one player game and it is the computers turn, then randomly choose new spot from the free spots
     if no_of_players == 1 and turn == 1:
         new_spot = random.choice(new_game.free_spots)
     else:
@@ -112,19 +112,17 @@ def start_game():
 
 
 while input("Do you want to play a game of TicTacToe? Type 'y' or 'n': ") == "y":
-    new_game = TicTacToe()
+    # Select one or two player game
     no_of_players = int(input("How many players are there? Type '1' or '2': "))
 
+    # declare / reset variables and objects
+    new_game = TicTacToe()
     player_one = Player("Player One", "X")
     player_two = Player("Player Two", "O")
     players = [player_one, player_two]
     turn = 0
+
     start_game()
 
-# Show the board to the user to select the spot for the next move.
-
-# Finally, show the user the final view of the board.
-
-# Select one or two player game
 if __name__ == '__main__':
     start_game()
