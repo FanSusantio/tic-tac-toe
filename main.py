@@ -23,11 +23,11 @@ import random
 
 def newMove():
     # Ask the user to enter the position number.
-    new_spot = int(input(f"{players[turn].name} enter a position number: \n"))
+    new_spot = int(input(f"{players[TURN_TOGGLE].name} enter a position number: \n"))
     if new_spot in new_game.free_spots:
-        new_game.theBoard[new_spot] = players[turn].symbol
+        new_game.theBoard[new_spot] = players[TURN_TOGGLE].symbol
         new_game.free_spots.remove(new_spot)
-        players[turn].spots_taken.append(new_spot)
+        players[TURN_TOGGLE].spots_taken.append(new_spot)
         return
     else:
         print("That is not a valid choice! Try again.")
@@ -60,16 +60,17 @@ class Player:
 
 def newMove():
     # If a one player game and it is the computers turn, then randomly choose new spot from the free spots
-    if no_of_players == 1 and turn == 1:
+    if no_of_players == 1 and TURN_TOGGLE == 1:
         new_spot = random.choice(new_game.free_spots)
+        print(f"The Computer chose position number {new_spot}")
     else:
         # Ask the user to enter the position number.
-        new_spot = int(input(f"{players[turn].name} enter a position number: \n"))
+        new_spot = int(input(f"{players[TURN_TOGGLE].name} enter a position number: \n"))
 
     if new_spot in new_game.free_spots:
-        new_game.theBoard[new_spot] = players[turn].symbol
+        new_game.theBoard[new_spot] = players[TURN_TOGGLE].symbol
         new_game.free_spots.remove(new_spot)
-        players[turn].spots_taken.append(new_spot)
+        players[TURN_TOGGLE].spots_taken.append(new_spot)
         return
     else:
         print("That is not a valid choice! Try again.")
@@ -81,13 +82,13 @@ def isPlayWin():
     winning_combos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],  # horizontal win
                       [1, 4, 7], [2, 5, 8], [3, 6, 9],  # vertical win
                       [1, 5, 9], [3, 5, 7]]  # diagonal win
-    check_list = players[turn].spots_taken
+    check_list = players[TURN_TOGGLE].spots_taken
     items = set(check_list)
     return sum([set(combo).issubset(items) for combo in winning_combos])
 
 
 def start_game():
-    global turn
+    global TURN_TOGGLE
     is_game_over = False
     new_game.printBoard()
 
@@ -96,7 +97,7 @@ def start_game():
         newMove()
         # If the current player won the game, then print a winning message and break the infinite loop.
         if isPlayWin():
-            print(f"Player {players[turn].name} wins!")
+            print(f"Player {players[TURN_TOGGLE].name} wins!")
             print("Game Over")
             is_game_over = True
 
@@ -106,8 +107,7 @@ def start_game():
             print("It's a draw! Game Over.")
             is_game_over = True
         else:
-            turn = 1 - turn
-            print(f'inside isPlayWin: {turn}')
+            TURN_TOGGLE = 1 - TURN_TOGGLE
         new_game.printBoard()
 
 
@@ -120,7 +120,7 @@ while input("Do you want to play a game of TicTacToe? Type 'y' or 'n': ") == "y"
     player_one = Player("Player One", "X")
     player_two = Player("Player Two", "O")
     players = [player_one, player_two]
-    turn = 0
+    TURN_TOGGLE = 0
 
     start_game()
 

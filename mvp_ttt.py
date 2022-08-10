@@ -22,7 +22,7 @@ free_spots = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 player = [{"name": "player_one", "symbol": "X", "spots_taken": []},
           {"name": "player_two", "symbol": "O", "spots_taken": []}]
 
-turn = 0
+TURN_TOGGLE = 0
 
 
 def printBoard(board):
@@ -35,12 +35,12 @@ def printBoard(board):
 
 def newMove():
     # Ask the user to enter the position number.
-    new_spot = int(input(f"{player[turn]['name']} enter a position number: \n"))
+    new_spot = int(input(f"{player[TURN_TOGGLE]['name']} enter a position number: \n"))
     # new_spot = str(random.choice(free_spots))
     if new_spot in free_spots:
-        theBoard[new_spot] = player[turn]["symbol"]
+        theBoard[new_spot] = player[TURN_TOGGLE]["symbol"]
         free_spots.remove(new_spot)
-        player[turn]["spots_taken"].append(new_spot)
+        player[TURN_TOGGLE]["spots_taken"].append(new_spot)
         return
     else:
         print("That is not a valid choice! Try again.")
@@ -52,13 +52,13 @@ def isPlayWin():
     winning_combos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],  # horizontal win
                       [1, 4, 7], [2, 5, 8], [3, 6, 9],  # vertical win
                       [1, 5, 9], [3, 5, 7]]  # diagonal win
-    check_list = player[turn]["spots_taken"]
+    check_list = player[TURN_TOGGLE]["spots_taken"]
     items = set(check_list)
     return sum([set(combo).issubset(items) for combo in winning_combos])
 
 
 def game():
-    global turn
+    global TURN_TOGGLE
     is_game_over = False
     printBoard(theBoard)
 
@@ -67,7 +67,7 @@ def game():
         newMove()
         # If the current player won the game, then print a winning message and break the infinite loop.
         if isPlayWin():
-            print(f"Player {player[turn]['name']} wins!")
+            print(f"Player {player[TURN_TOGGLE]['name']} wins!")
             print("Game Over")
             is_game_over = True
 
@@ -77,7 +77,7 @@ def game():
             print("It's a draw! Game Over.")
             is_game_over = True
         else:
-            turn = 1 - turn
+            TURN_TOGGLE = 1 - TURN_TOGGLE
         printBoard(theBoard)
 
 
