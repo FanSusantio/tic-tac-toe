@@ -20,20 +20,6 @@ import random
 
 
 # Create a board using a 2-dimensional array and initialize each element as empty.
-
-def newMove():
-    # Ask the user to enter the position number.
-    new_spot = int(input(f"{players[TURN_TOGGLE].name} enter a position number: \n"))
-    if new_spot in new_game.free_spots:
-        new_game.theBoard[new_spot] = players[TURN_TOGGLE].symbol
-        new_game.free_spots.remove(new_spot)
-        players[TURN_TOGGLE].spots_taken.append(new_spot)
-        return
-    else:
-        print("That is not a valid choice! Try again.")
-        newMove()
-
-
 class TicTacToe:
 
     def __init__(self):
@@ -95,6 +81,7 @@ def start_game():
     # Write an infinite loop that breaks when the game is over (either win or draw).
     while not is_game_over:
         newMove()
+        new_game.printBoard()
         # If the current player won the game, then print a winning message and break the infinite loop.
         if isPlayWin():
             print(f"{players[TURN_TOGGLE].name} wins!")
@@ -108,7 +95,6 @@ def start_game():
             is_game_over = True
         else:
             TURN_TOGGLE = 1 - TURN_TOGGLE
-        new_game.printBoard()
 
 
 while input("Do you want to play a game of TicTacToe? Type 'y' or 'n': ") == "y":
@@ -122,7 +108,4 @@ while input("Do you want to play a game of TicTacToe? Type 'y' or 'n': ") == "y"
     players = [player_one, player_two]
     TURN_TOGGLE = 0
 
-    start_game()
-
-if __name__ == '__main__':
     start_game()
